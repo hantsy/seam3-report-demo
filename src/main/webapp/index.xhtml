@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.org/seam/faces"
+	template="/resources/forge-template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<s:viewAction action="#{conversation.end}"
+				if="#{not conversation.transient}" immediate="true" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="header">
+		Seam 3 report demo
+	</ui:define>
+
+	<ui:define name="subheader">
+		reports example application.
+	</ui:define>
+
+	<ui:define name="footer">
+	</ui:define>
+
+	<ui:define name="main">
+		<h:link  outcome="contacts.xhtml" value="Contacts"/>
+	</ui:define>
+
+	<ui:define name="left">
+	</ui:define>
+
+</ui:composition>
+
+

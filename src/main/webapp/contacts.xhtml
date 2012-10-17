@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.org/seam/faces"
+	template="/resources/forge-template.xhtml">
+
+	<ui:define name="metadata">
+		<f:metadata>
+			<s:viewAction action="#{conversation.end}"
+				if="#{not conversation.transient}" immediate="true" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="header">
+		Contact
+	</ui:define>
+
+	<ui:define name="subheader">
+		Listing all contacts.
+	</ui:define>
+
+	<ui:define name="footer">
+	</ui:define>
+
+	<ui:define name="main">
+		<h:form id="form">
+			<h:messages />
+
+			<h:commandButton value="Export" action="#{reportAction.render}" />
+			<h:commandButton value="Export 2" action="#{reportAction.export2}" />
+			<br />
+
+
+			<h:dataTable var="entity" value="#{contacts}" width="100%"
+				style="border:1px solid gray">
+				<h:column>
+					<f:facet name="header">
+							ID
+						</f:facet>
+					#{entity.id}</h:column>
+				<h:column>
+					<f:facet name="header">
+							Name
+						</f:facet>
+					#{entity.name}</h:column>
+				<h:column>
+					<f:facet name="header">
+							Phone Number
+						</f:facet>
+					#{entity.phoneNumber}</h:column>
+				<h:column>
+					<f:facet name="header">
+							Email Address
+						</f:facet>
+					#{entity.emailAddress}</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+
+	<ui:define name="left">
+	</ui:define>
+
+</ui:composition>
+
+
