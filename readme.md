@@ -26,11 +26,10 @@
   
  Generally,  to generate a JasperReports report in a Seam 3/Java EE6 project you can consider the following steps:
   
-  * Create JasperRoports jrxml file using iReports or JasperStudio
-  * Compile jrxml file to PDF
+  1. Create JasperRoports jrxml file using iReports or JasperStudio
+  2. Compile jrxml file to PDF
  
- 
- You can use the official JaperReports Studio(for Eclipse users) or iReports(for NetBeans users) to create the reports template source file.
+You can use the official JaperReports Studio(for Eclipse users) or iReports(for NetBeans users) to create the reports template source file.
   
  In your java code, inject JasperReports compiler to compile the jasperReports source, and JasperReports renderer to render the compiled result.
   
@@ -68,12 +67,11 @@
   
  Now change the report generation process slightly, and introduce an extra step to generate the pure jrxml.
   
-  * Create a velocity template source(embed velocity syntax into jrxml)
-  * Convert the velocity template to pure jrxml
-  * Compile the jrmxl to PDF.
-  
+  1. Create a velocity template source(embed velocity syntax into jrxml)
+  2. Convert the velocity template to pure jrxml
+  3. Compile the jrmxl to PDF.
  
- Create a jrxml firstly, and embed the velocity syntax.
+Create a jrxml firstly, and embed the velocity syntax.
   
   
 	  <detail>
