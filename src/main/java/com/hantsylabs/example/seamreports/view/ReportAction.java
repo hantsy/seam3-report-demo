@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import org.jboss.seam.mail.templating.velocity.CDIVelocityContext;
 import org.jboss.seam.mail.templating.velocity.VelocityTemplate;
@@ -62,7 +63,7 @@ public class ReportAction {
 	@PDF
 	@Jasper
 	private transient ReportRenderer pdfRenderer;
-	
+
 	@Inject
 	List<Contact> contacts;
 
@@ -100,7 +101,7 @@ public class ReportAction {
 
 		String stringReport = new VelocityTemplate(sourceTemplate,
 				velocityContext).merge(_values);
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug("report source file content@" + stringReport);
 		}
@@ -125,8 +126,46 @@ public class ReportAction {
 
 	}
 
-	public void render2() {
+	public void render1() {
+		if (log.isDebugEnabled()) {
+			log.debug("export as pdf without apache velocity");
+		}
+		final String mimeType = "application/pdf";
+		final String attachFileName = "contacts1.pdf";
+		final String reportTemplate = "/contacts1.jrxml";
 
+		if (log.isDebugEnabled()) {
+			log.debug("mimeType@" + mimeType);
+			log.debug("attachFileName@" + attachFileName);
+		}
+
+		ExternalContext externalContext = facesContext.getExternalContext();
+
+		externalContext.setResponseContentType(mimeType);
+		externalContext.addResponseHeader("Content-Disposition",
+				"attachment;filename=" + attachFileName + "");
+
+		InputStream sourceTemplate = resourceProvider
+				.loadResourceStream(reportTemplate);
+
+		// source
+		ReportDefinition report;
+		try {
+			report = compiler.compile(sourceTemplate);
+			Report reportInstance = report.fill(new JRBeanCollectionDataSource(
+					contacts), null);
+
+			pdfRenderer.render(reportInstance,
+					externalContext.getResponseOutputStream());
+		} catch (ReportException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		facesContext.responseComplete();
 	}
 
 }

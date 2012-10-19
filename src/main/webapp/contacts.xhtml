@@ -30,8 +30,9 @@
 		<h:form id="form">
 			<h:messages />
 
-			<h:commandButton value="Export" action="#{reportAction.render}" />
-			<h:commandButton value="Export 2" action="#{reportAction.export2}" />
+			
+			<h:commandButton value="Export " action="#{reportAction.render1}" />#{' '}<h:commandButton value="Export(with Apache Velocity)"
+				action="#{reportAction.render}" />
 			<br />
 
 

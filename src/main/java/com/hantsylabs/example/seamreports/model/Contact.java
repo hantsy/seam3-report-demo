@@ -15,43 +15,38 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jboss.solder.core.Veto;
 
-/**
- * Entity implementation class for Entity: Person
- * 
- */
-@Entity
 @Veto
-@Table(name = "contacts")
 public class Contact implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
 	private Long id;
 
-	@NotNull
-	@NotEmpty
-	@Column(name = "first_name")
 	private String firstName;
 
-	@NotNull
-	@NotEmpty
-	@Column(name = "last_name")
 	private String lastName;
 
-	@NotNull
-	@Email
-	@Column(name = "email_addr")
 	private String emailAddress;
 
-	@Column(name = "phone_num")
 	private String phoneNumber;
 
 	public Contact() {
 		super();
 	}
+	
+	
+
+	public Contact(Long id, String firstName, String lastName,
+			String emailAddress, String phoneNumber) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailAddress = emailAddress;
+		this.phoneNumber = phoneNumber;
+	}
+
+
 
 	public Long getId() {
 		return id;

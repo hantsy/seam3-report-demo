@@ -1,1 +1,0 @@
-insert into contacts(id, first_name, last_name, email_addr, phone_num) values (1, 'hansty', 'bai', 'hantsy@tom.com','1234343242'), (2, 'test','user', 'test@user.com','2234343242'), (3, 'test3','user3', 'test3@user.com','3234343242');

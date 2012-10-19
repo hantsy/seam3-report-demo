@@ -10,17 +10,9 @@
 	<properties>
 		<version.seam>3.1.0.Final</version.seam>
 		<version.seam-solder>3.1.1.Final</version.seam-solder>
-		<version.richfaces>4.2.1.Final</version.richfaces>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
-		    <dependency>
-				<groupId>org.richfaces</groupId>
-				<artifactId>richfaces-bom</artifactId>
-				<version>${version.richfaces}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
 			<dependency>
 				<groupId>org.jboss.spec</groupId>
 				<artifactId>jboss-javaee-6.0</artifactId>
@@ -177,6 +169,19 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.2</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.jboss.spec.javax.faces</groupId>
 			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
 			<scope>provided</scope>
@@ -192,14 +197,14 @@
 			<artifactId>cdi-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet</groupId>
 			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
