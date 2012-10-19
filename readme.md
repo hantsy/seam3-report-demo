@@ -5,12 +5,11 @@
   * [JasperReports](http://jasperforge.org/projects/jasperreports)
   * [Pentaho](http://www.pentaho.com/)
   * [XDocReport](http://code.google.com/p/xdocreport/)
-  
- I will demonstrate how to use JasperReports engine to generate PDF document.
+
  
 ##Create a simple Java EE 6 application
 
- You can quickly create a project using Forge or reuse sample code from JBoss AS Example, and add seam 3 reports module into your pom.xml.
+ You can quickly create a project using Forge or reuse sample code from JBoss AS Example, and add seam 3 reports module into your *pom.xml*.
   
 	  <dependency>
 		    <groupId>org.jboss.seam.reports</groupId>
@@ -29,7 +28,8 @@
   
   * Create JasperRoports jrxml file using iReports or JasperStudio
   * Compile jrxml file to PDF
-  
+ 
+ 
  You can use the official JaperReports Studio(for Eclipse users) or iReports(for NetBeans users) to create the reports template source file.
   
  In your java code, inject JasperReports compiler to compile the jasperReports source, and JasperReports renderer to render the compiled result.
@@ -60,11 +60,11 @@
 			e.printStackTrace();
 		}
   
- JRDataSource is a JasperReports specified "datasource" which is responsible of gathering the data for report generation. JasperReports provides several implementations, please refer to the JRDataSource for details. In this case, we have got a list, we can use JRBeanCollectionDataSource to wrap the list. use in the reports. 
+ `JRDataSource` is a JasperReports specified "datasource" which is responsible of gathering the data for report generation. JasperReports provides several implementations, please refer to the JRDataSource for details. In this case, we have got a list, we can use `JRBeanCollectionDataSource` to wrap the list and use it in this reports. 
   
  Everything works well. But personally, I dislike the jrxml syntax and do not want to use jrxml syntax to fill data, I only want to use JasperReports as report engine. I am familiar with Apache Velocity, is possible using Velocity as template and fill data? 
   
-##Improved the codes with Apache Veloctiy 
+##Improve the codes with Apache Veloctiy 
   
  Now change the report generation process slightly, and introduce an extra step to generate the pure jrxml.
   
@@ -72,6 +72,7 @@
   * Convert the velocity template to pure jrxml
   * Compile the jrmxl to PDF.
   
+ 
  Create a jrxml firstly, and embed the velocity syntax.
   
   
@@ -132,7 +133,11 @@
 			e.printStackTrace();
 		}
   
- The velocity support is from the Seam3 mail module, Seam 3 has another "renderer" module for this purpose, but it is not released at the moment. So you have to add seam3 mail dependency in your pom.xml.
+ The velocity support is from the Seam3 mail module.
+ 
+ Seam 3 has another `renderer` module for this purpose, but it is not released at the moment. 
+ 
+ So you have to add seam3 mail dependency in your *pom.xml*.
    
         <dependency>
 			<groupId>org.jboss.seam.mail</groupId>
