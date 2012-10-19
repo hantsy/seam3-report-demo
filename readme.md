@@ -1,21 +1,16 @@
-Generate reports with Seam 3 Reports and Apache Velocity
-========================================================
-
+#Generate reports with Seam 3 Reports and Apache Velocity
  
-  Seam 3 provides a collection of CDI extension. Seam 3 report module bridges CDI and several report engines, such as
+ Seam 3 provides a collection of standard CDI extensions. Seam3 report module bridges CDI and several report engines, such as
   
   * [JasperReports](http://jasperforge.org/projects/jasperreports)
   * [Pentaho](http://www.pentaho.com/)
   * [XDocReport](http://code.google.com/p/xdocreport/)
   
-  I will demonstrate how to use JasperReports engine to generate PDF document.
-  
-  Generally, generate a JasperReports report in a Seam 3/Java EE6 project you have to:
-  
-  * Create JasperRoports jrxml file using iReports or JasperStudio
-  * Compile jrxml file to PDF
-  
-  You can quickly create a project using Forge or reuse sample code from JBoss AS Example, and add seam 3 reports module into your pom.xml.
+ I will demonstrate how to use JasperReports engine to generate PDF document.
+ 
+##Create a simple Java EE 6 application
+
+ You can quickly create a project using Forge or reuse sample code from JBoss AS Example, and add seam 3 reports module into your pom.xml.
   
 	  <dependency>
 		    <groupId>org.jboss.seam.reports</groupId>
@@ -30,6 +25,12 @@ Generate reports with Seam 3 Reports and Apache Velocity
 		    <version>${seam-reports-version}</version>
 	  </dependency>
   
+   Generally,  to generate a JasperReports report in a Seam 3/Java EE6 project you can consider the following steps:
+  
+  * Create JasperRoports jrxml file using iReports or JasperStudio
+  * Compile jrxml file to PDF
+  
+  You can use the official JaperReports Studio(for Eclipse users) or iReports(for NetBeans users) to create the reports template source file.
   
   In your java code, inject JasperReports compiler to compile the jasperReports source, and JasperReports renderer to render the compiled result.
   
@@ -42,7 +43,7 @@ Generate reports with Seam 3 Reports and Apache Velocity
 	  @Jasper
 	  private transient ReportRenderer pdfRenderer;
   
-  The *@Jasper* annotation states we will use JasperReports as report engine, *@PDF* is the final generated document format.
+  The `@Jasper` annotation states we will use JasperReports as report engine, `@PDF` is the final generated document format.
   
 		ReportDefinition report;
 		try {
@@ -59,9 +60,11 @@ Generate reports with Seam 3 Reports and Apache Velocity
 			e.printStackTrace();
 		}
   
-  For the JRDataSource, you can specify the JRDataSource you will use in the reports. JasperReports provides several JRDataSource implementation for different cases.
+  JRDataSource is a JasperReports specified "datasource" which is responsible of gathering the data for report generation. JasperReports provides several implementations, please refer to the JRDataSource for details. In this case, we have got a list, we can use JRBeanCollectionDataSource to wrap the list. use in the reports. 
   
-  Personally, I dislike the jrxml syntax and do not want to use jrxml syntax to fill data, I only want to use JasperReports as report engine. I am familiar with Apache Velocity, is possible using Velocity as template and fill data? 
+  Everything works well. But personally, I dislike the jrxml syntax and do not want to use jrxml syntax to fill data, I only want to use JasperReports as report engine. I am familiar with Apache Velocity, is possible using Velocity as template and fill data? 
+  
+##Improved the codes with Apache Veloctiy 
   
   Now change the report generation process slightly, and introduce an extra step to generate the pure jrxml.
   
@@ -145,7 +148,26 @@ Generate reports with Seam 3 Reports and Apache Velocity
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity</artifactId>
 		</dependency>
+ 
+##Run the project 
   
-  Check out the complete code from github.com, have a try yourself. 
+  I assume you have installed the latest Oracle JDK 7, JBoss AS 7.1.1.Final and Apache Maven 3.0.4.
+  
+  1. Check out the complete codes from github.com. 
+  
+  	git clone git://github.com/hantsy/seam3-report-demo.git
+  	
+  2. Start JBoss AS from command line.
+  	
+  	<JBOSS_HOME>\bin\standalone.bat
+  	
+  3. Deploy the application into the running JBoss AS.
+  
+  	mvn clean package jboss-as:deploy
+  	
+  4. Open your browser and go to http://localhost:8080/seam3-reports-demo.
+  	
+  	
+  
   
   
