@@ -1,15 +1,17 @@
 #Generate reports with Seam 3 Reports and Apache Velocity
  
- Seam 3 provides a collection of standard CDI extensions. Seam3 report module bridges CDI and several report engines, such as
+Seam 3 provides a collection of standard CDI extensions. Seam3 report module bridges CDI and several report engines, such as
   
   * [JasperReports](http://jasperforge.org/projects/jasperreports)
   * [Pentaho](http://www.pentaho.com/)
   * [XDocReport](http://code.google.com/p/xdocreport/)
 
  
-##Create a simple Java EE 6 application
+##Basic Configuration
 
- You can quickly create a project using Forge or reuse sample code from JBoss AS Example, and add seam 3 reports module into your *pom.xml*.
+Assume you have already created a Maven based Java EE 6 application. If not, you can create one using JBoss Forge.
+
+Add Seam 3 reports related dependencies into your *pom.xml*.
   
 	  <dependency>
 		    <groupId>org.jboss.seam.reports</groupId>
@@ -24,14 +26,14 @@
 		    <version>${seam-reports-version}</version>
 	  </dependency>
   
- Generally,  to generate a JasperReports report in a Seam 3/Java EE6 project you can consider the following steps:
+Generally, in order to generate a JasperReports based report in a Seam 3/Java EE6 project, you could consider the following steps:
   
   1. Create JasperRoports jrxml file using iReports or JasperStudio
   2. Compile jrxml file to PDF
  
 You can use the official JaperReports Studio(for Eclipse users) or iReports(for NetBeans users) to create the reports template source file.
   
- In your java code, inject JasperReports compiler to compile the jasperReports source, and JasperReports renderer to render the compiled result.
+In your java code, inject JasperReports compiler to compile the jasperReports source, and JasperReports renderer to render the compiled result.
   
 	  @Inject
 	  @Jasper
@@ -42,7 +44,7 @@ You can use the official JaperReports Studio(for Eclipse users) or iReports(for 
 	  @Jasper
 	  private transient ReportRenderer pdfRenderer;
   
- The `@Jasper` annotation states we will use JasperReports as report engine, `@PDF` is the final generated document format.
+The `@Jasper` annotation states we will use JasperReports as report engine, `@PDF` is the final generated document format.
   
 		ReportDefinition report;
 		try {
@@ -59,13 +61,15 @@ You can use the official JaperReports Studio(for Eclipse users) or iReports(for 
 			e.printStackTrace();
 		}
   
- `JRDataSource` is a JasperReports specified "datasource" which is responsible of gathering the data for report generation. JasperReports provides several implementations, please refer to the JRDataSource for details. In this case, we have got a list, we can use `JRBeanCollectionDataSource` to wrap the list and use it in this reports. 
+`JRDataSource` is a JasperReports specified "datasource" which is responsible of gathering the data for report generation. JasperReports provides several implementations natively, please refer to the JRDataSource javadoc for more detailed info. In this case, we have got a list, we can use `JRBeanCollectionDataSource` to wrap the existing list and use it in this reports. 
   
- Everything works well. But personally, I dislike the jrxml syntax and do not want to use jrxml syntax to fill data, I only want to use JasperReports as report engine. I am familiar with Apache Velocity, is possible using Velocity as template and fill data? 
+Everything works well. 
+
+But personally, I dislike the jrxml syntax and do not want to use jrxml syntax to fill data, I only want to use JasperReports as report engine. I am familiar with Apache Velocity, is possible using Velocity as template and fill data? 
   
 ##Improve the codes with Apache Veloctiy 
   
- Now change the report generation process slightly, and introduce an extra step to generate the pure jrxml.
+Now change the report generation process slightly, and introduce an extra step to generate the pure jrxml.
   
   1. Create a velocity template source(embed velocity syntax into jrxml)
   2. Convert the velocity template to pure jrxml
@@ -131,11 +135,11 @@ Create a jrxml firstly, and embed the velocity syntax.
 			e.printStackTrace();
 		}
   
- The velocity support is from the Seam3 mail module.
+Note, the velocity support is from the Seam3 mail module.
  
- Seam 3 has another `renderer` module for this purpose, but it is not released at the moment. 
+In the Seam3 repository, there is a standalone `renderer` module for rendering template, but it is not released a stable version at the moment. 
  
- So you have to add seam3 mail dependency in your *pom.xml*.
+So you have to add Seam3 mail dependencies in your *pom.xml*.
    
         <dependency>
 			<groupId>org.jboss.seam.mail</groupId>
@@ -153,22 +157,22 @@ Create a jrxml firstly, and embed the velocity syntax.
 		</dependency>
  
 ##Run the project 
+
+I assume you have installed the latest Oracle JDK 7, JBoss AS 7.1.1.Final and Apache Maven 3.0.4.
   
- I assume you have installed the latest Oracle JDK 7, JBoss AS 7.1.1.Final and Apache Maven 3.0.4.
-  
-  1.Check out the complete codes from github.com. 
+  1. Check out the complete codes from github.com. 
   
   		git clone git://github.com/hantsy/seam3-report-demo.git
   	
-  2.Start JBoss AS from command line.
+  2. Start JBoss AS from command line.
   	
   		<JBOSS_HOME>\bin\standalone.bat
   	
-  3.Deploy the application into the running JBoss AS.
+  3. Deploy the application into the running JBoss AS.
   
   		mvn clean package jboss-as:deploy
   	
-  4.Open your browser and go to http://localhost:8080/seam3-reports-demo.
+  4. Open your browser and go to http://localhost:8080/seam3-reports-demo.
   	
   	
   
