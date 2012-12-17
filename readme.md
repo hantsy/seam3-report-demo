@@ -1,4 +1,6 @@
 #Generate reports with Seam 3 Reports and Apache Velocity
+
+JavaLobby post link[http://architects.dzone.com/articles/generate-reports-seam-3](http://architects.dzone.com/articles/generate-reports-seam-3)
  
 Seam 3 provides a collection of standard CDI extensions. Seam3 report module bridges CDI and several report engines, such as
   
